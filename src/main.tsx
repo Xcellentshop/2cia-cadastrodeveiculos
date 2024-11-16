@@ -2,9 +2,15 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
+import { ChatProvider } from "./contexts/ChatContext";
+import ChatIcon from "./components/Chat/ChatIcon";
+
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <ChatProvider>
+      <App />
+      <ChatIcon />
+    </ChatProvider>
   </StrictMode>
 );
