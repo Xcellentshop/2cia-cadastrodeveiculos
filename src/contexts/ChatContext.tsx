@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs, query, where } from 'firebase/firestore';
 
@@ -33,9 +33,9 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       const normalizedQuery = queryText.toLowerCase();
       const vehiclesRef = collection(db, "vehicles");
 
-      // Example: Advanced parsing for questions
+      // Verificar se a pergunta é sobre a quantidade de veículos
       if (normalizedQuery.includes("quantos veículos")) {
-        // Check for year and city
+        // Verificar ano e cidade
         const matchCity = normalizedQuery.match(/em\s(\w+)/);
         const matchYear = normalizedQuery.match(/ano\s(\d{4})/);
         const city = matchCity ? matchCity[1] : null;
@@ -43,26 +43,29 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
 
         let vehicleQuery = vehiclesRef;
         if (city) vehicleQuery = query(vehicleQuery, where("city", "==", city));
-        if (year) vehicleQuery = query(vehicleQuery, where("year", "==", year));
+        if (year) vehicleQuery = query(vehicleQuery, where("releaseDate", ">=", `${year}-01-01`), where("releaseDate", "<=", `${year}-12-31`));
 
         const querySnapshot = await getDocs(vehicleQuery);
         const count = querySnapshot.size;
         return `Existem ${count} veículos cadastrados ${city ? `em ${city}` : ""} ${year ? `no ano ${year}` : ""}.`;
       }
 
-      // Basic search by partial plate match
+      // Filtragem por correspondência parcial de placa ou outras variáveis
       const querySnapshot = await getDocs(vehiclesRef);
       const vehicles = querySnapshot.docs.map((doc) => doc.data());
-      
-      // Filtro por correspondência parcial de placa
+
       const foundVehicles = vehicles.filter((vehicle: any) => 
-        vehicle.plate.toLowerCase().includes(normalizedQuery)
+        vehicle.plate.toLowerCase().includes(normalizedQuery) || // Busca por placa
+        vehicle.brand.toLowerCase().includes(normalizedQuery) || // Busca por marca
+        vehicle.model.toLowerCase().includes(normalizedQuery) || // Busca por modelo
+        vehicle.state.toLowerCase().includes(normalizedQuery) || // Busca por estado
+        vehicle.city.toLowerCase().includes(normalizedQuery) || // Busca por cidade
+        vehicle.vehicleType.toLowerCase().includes(normalizedQuery) // Busca por tipo de veículo
       );
 
       if (foundVehicles.length > 0) {
-        // Formate a resposta para veículos encontrados
         return foundVehicles
-          .map((vehicle: any) => `Veículo encontrado: Modelo: ${vehicle.model}, Placa: ${vehicle.plate}, Cidade: ${vehicle.city}`)
+          .map((vehicle: any) => `Veículo encontrado: Marca: ${vehicle.brand}, Modelo: ${vehicle.model}, Placa: ${vehicle.plate}, Cidade: ${vehicle.city}, Estado: ${vehicle.state}, Tipo: ${vehicle.vehicleType}, Ano de Lançamento: ${vehicle.releaseDate}`)
           .join("\n");
       } else {
         return 'Desculpe, não encontrei informações sobre esse veículo.';
