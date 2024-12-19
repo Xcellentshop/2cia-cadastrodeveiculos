@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.chat-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.chat-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.chat-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.chat-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Estilos do Calendário - Tema Escuro */
+.calendar-custom.fc-dark {
+  --fc-border-color: theme('colors.gray.600');
+  --fc-page-bg-color: theme('colors.gray.800');
+  --fc-neutral-bg-color: theme('colors.gray.700');
+  --fc-list-event-hover-bg-color: theme('colors.gray.700');
+  --fc-today-bg-color: theme('colors.violet.900/0.3');
+}
+
+/* Título do mês */
+.dark-month-title,
+.dark-month-title.fc-toolbar-title,
+.calendar-custom.fc-dark .dark-month-title {
+  color: theme('colors.gray.100') !important;
+  font-weight: 600 !important;
+}
+
+/* Células dos Dias */
+.dark-cell {
+  background-color: theme('colors.gray.800') !important;
+}
+
+.dark-cell a {
+  color: theme('colors.gray.100') !important;
+}
+
+/* Cabeçalho dos Dias */
+.dark-header {
+  background-color: theme('colors.gray.700') !important;
+  color: theme('colors.white') !important;
+}
+
+.dark-header a {
+  color: theme('colors.white') !important;
+  font-weight: 600 !important;
+}
+
+/* Labels e Textos */
+.dark-label {
+  color: theme('colors.gray.100') !important;
+}
+
+/* Eventos */
+.dark-event {
+  background-color: theme('colors.violet.600') !important;
+  border-color: theme('colors.violet.700') !important;
+  color: theme('colors.white') !important;
+}
+
+/* Visão Geral */
+.dark-view {
+  background-color: theme('colors.gray.800') !important;
+  color: theme('colors.gray.100') !important;
+}
+
+/* Estilos específicos para elementos do FullCalendar */
+.calendar-custom.fc-dark .fc-toolbar-title {
+  color: theme('colors.gray.100') !important;
+}
+
+.calendar-custom.fc-dark .fc-button {
+  background-color: theme('colors.violet.600') !important;
+  border-color: theme('colors.violet.700') !important;
+  color: theme('colors.white') !important;
+}
+
+.calendar-custom.fc-dark .fc-button:hover {
+  background-color: theme('colors.violet.700') !important;
+}
+
+.calendar-custom.fc-dark .fc-button-active {
+  background-color: theme('colors.violet.800') !important;
+}
+
+/* Forçar cores claras em elementos específicos */
+.calendar-custom.fc-dark .fc-daygrid-day-number,
+.calendar-custom.fc-dark .fc-col-header-cell-cushion {
+  color: theme('colors.gray.100') !important;
+}
+
+/* Ajustes para o dia atual */
+.calendar-custom.fc-dark .fc-day-today {
+  background-color: theme('colors.violet.900/0.2') !important;
+}
+
+.calendar-custom.fc-dark .fc-day-today .fc-daygrid-day-number {
+  color: theme('colors.violet.200') !important;
+  font-weight: bold !important;
+}
+
+/* Garantir visibilidade do texto em todos os elementos */
+.calendar-custom.fc-dark .fc-daygrid-day-frame *,
+.calendar-custom.fc-dark .fc-scrollgrid-sync-inner *,
+.calendar-custom.fc-dark .fc-col-header-cell * {
+  color: theme('colors.gray.100') !important;
+}
+
+/* Exceção para eventos */
+.calendar-custom.fc-dark .fc-event-main-frame *,
+.calendar-custom.fc-dark .fc-event-title-container * {
+  color: theme('colors.white') !important;
+}
+
+/* Forçar cor clara em elementos com IDs específicos */
+.calendar-custom.fc-dark [id^="fc-dom-"] {
+  color: theme('colors.gray.100') !important;
+}
+
+/* Ajustes para melhor visibilidade de todos os textos */
+.calendar-custom.fc-dark .fc-toolbar *,
+.calendar-custom.fc-dark .fc-header-toolbar *,
+.calendar-custom.fc-dark .fc-toolbar-title,
+.calendar-custom.fc-dark .fc-col-header-cell-cushion,
+.calendar-custom.fc-dark .fc-daygrid-day-number,
+.calendar-custom.fc-dark .fc-daygrid-day-top a {
+  color: theme('colors.gray.100') !important;
+}
+
+/* Seletor específico para o título do mês/ano */
+.calendar-custom.fc-dark .fc-toolbar-chunk h2.fc-toolbar-title {
+  color: theme('colors.gray.100') !important;
+  font-weight: 600 !important;
+}
+
+/* Garantir que o título seja visível mesmo com outros estilos */
+.calendar-custom.fc-dark .fc-toolbar-title#fc-dom-86,
+.calendar-custom.fc-dark h2[class*="fc-toolbar-title"] {
+  color: theme('colors.gray.100') !important;
+}
+
+/* Forçar cor clara em todos os elementos da toolbar */
+.calendar-custom.fc-dark .fc-toolbar-chunk > * {
+  color: theme('colors.gray.100') !important;
+}
